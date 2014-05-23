@@ -1,0 +1,30 @@
+{
+  "name": "gulp-dalek",
+  "version": "0.0.0",
+  "description": "Run Mocha tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mattcreager/gulp-dalek.git"
+  },
+  "keywords": [
+    "dalek",
+    "dalekjs",
+    "gulp-dalek",
+    "gulp-dalekjs",
+    "e2e"
+  ],
+  "author": "Matthew Creager <mattcreager@goinstant.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/mattcreager/gulp-dalek/issues"
+  },
+  "dependencies": {
+    "through2": "~0.4.2",
+    "gulp-util": "~2.2.14",
+    "dalekjs": "0.0.8"
+  }
+}
