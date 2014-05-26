@@ -2,38 +2,61 @@
 
 'use strict';
 
+var Dalek = require('dalekjs');
 var through = require('through2');
 var path = require('path');
 var gutil = require('gulp-util');
-var Dalek = require('dalekjs');
-var path = require('path');
+var _ = require('lodash');
 
-module.exports = function (opt) {
-  return through.obj(function (file, enc, cb) {
+module.exports = function(opts) {
+  var defaults = { reporter: [], browser: [] };
+  var options = opts || {};
+  var files = [];
+  var stream;
+
+  var hasInvalidOption = _.any(opts, function (option) {
+    return !_.isArray(option);
+  });
+
+  if (hasInvalidOption) {
+    stream.emit('error', new gutil.PluginError({
+      plugin: 'gulp-dalek',
+      message: 'An invalid option has been provided'
+     }));
+
+    return;
+  }
+
+  options = _.defaults(options, defaults);
+
+  function queueFile(file, enc, cb) {
     if (file.isNull()) {
-      this.push(file);
+      stream.push(file);
+
       return cb();
     }
 
     if (file.isStream()) {
-      this.emit('error', new gutil.PluginError('gulp-dalek', 'Streaming not supported'));
+      stream.emit('error', new gutil.PluginError({
+        plugin: 'gulp-dalek',
+        message: 'Streaming not supported'
+      }));
+
       return cb();
     }
 
-    try {
-      var testPath = path.relative(file.cwd, file.path);
+    stream.push(file);
+    files.push(path.relative(file.cwd, file.path));
+    cb();
+  }
 
-      var dalek = new Dalek({
-        tests: [testPath],
-      });
+  function endStream() {
+    options = _.merge(options, { tests: files });
+    var dalek = new Dalek(options);
+    dalek.run();
+  }
 
-      dalek.run();
-    } catch (err) {
-      console.log(err)
-      this.emit('error', new gutil.PluginError('gulp-<%= pluginName %>', err));
-    }
+  stream = through.obj(queueFile, endStream);
 
-    // this.push(file);
-    // cb();
-  });
+  return stream;
 };
