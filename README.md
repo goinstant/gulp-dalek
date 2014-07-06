@@ -21,7 +21,7 @@ gulp.task('test', function() {
     .pipe(dalek({
       browser: ['phantomjs', 'chrome', 'chrome:canary'],
       reporter: ['html', 'junit']
-    });
+    }));
 });
 
 ```
