@@ -43,7 +43,7 @@ Default: `null`
 
 The browsers you would like to test.
 
-*With the exception of PhantomJS, you need to have the Dalek [browser plugin](https://github.com/dalekjs?query=dalek-browser0) installed.*
+*With the exception of PhantomJS, you need to have the corresponding Dalek [browser plugins](https://github.com/dalekjs?query=dalek-browser) installed.*
 
 ##### reporter
 
@@ -52,7 +52,7 @@ Default: `null`
 
 The reporters you would like to invoke
 
-*With the exception of console output, you need to have the Dalek [reporter plugin](https://github.com/dalekjs?query=dalek-reporter) installed.*
+*With the exception of console output, you need to have the corresponding Dalek [reporter plugins](https://github.com/dalekjs?query=dalek-reporter) installed.*
 
 ## License
 &copy; 2014 GoInstant Inc., a salesforce.com company. Licensed under the BSD 3-clause license.
